@@ -73,7 +73,7 @@ END
 
 GO
 
-	--Select Procedure
+	--Select Route
 DROP PROCEDURE IF EXISTS spSelectRoute 
 
 GO 
@@ -90,7 +90,9 @@ END
 GO
 
 
---JOURNEY PROCEDURE 
+--JOURNEY PROCEDURE
+
+	--Insert Journey
 DROP PROCEDURE IF EXISTS spInsertJourney
 
 GO 
@@ -258,96 +260,6 @@ BEGIN
 END
 
 GO
-
-
--- ROUTE_LOG PROCEDURE
-	--Insert Route_log 
-DROP PROCEDURE IF EXISTS spInsertRoute_log
-
-GO 
-CREATE PROCEDURE spInsertRoute_log
-(
-	@pass_averange INT,
-	@Date DATE,
-	@ID_route INT
-)
-AS
-BEGIN
-	SELECT * FROM  [dbo].[Route_log] 
-
-	INSERT INTO [dbo].[Route_log] 
-	VALUES(@pass_averange, @Date, @ID_route)
-	
-	SELECT * FROM  [dbo].[Route_log] order by ID  desc
-END
-
-GO
-
-	--Update Route_log
-DROP PROCEDURE IF EXISTS spUpdateRoute_log
-
-GO	
-
-CREATE PROCEDURE spUpdateRoute_log
-(
-	@ID INT,
-	@pass_averange INT,
-	@Date DATE,
-	@ID_route INT
-)
-AS 
-BEGIN
-	SELECT * FROM [dbo].[Route_log]
-
-	UPDATE [Route_log]
-	SET 
-		[pass_average] = @pass_averange,
-		[Date] = @Date,
-		ID_route = @ID_route
-	WHERE ID = @ID
-	
-	SELECT * FROM [Route_log]	
-END 
-
-GO
-
-	--Select Route_log
-DROP PROCEDURE IF EXISTS spSelectRoute_log
-
-GO 
-
-CREATE PROCEDURE spSelectRoute_log(
-	@ID INT
-)
-AS 
-BEGIN
-	SELECT [ID], [pass_average], [ID_route] FROM [dbo].[Route_log]
-	WHERE ID = @ID 
-END
-
-GO
-
-	--Delete Route_log
-DROP PROCEDURE IF EXISTS spDeleteRoute_log
-
-GO
-	
-CREATE PROCEDURE spDeleteRoute_log(
-	@ID INT
-)
-AS 
-BEGIN 
-	SELECT * FROM [dbo].[Route_log]
-	
-	DELETE FROM [Route_log]
-	WHERE ID = @ID
-
-	SELECT * FROM [dbo].[Route_log]
-END
-
-GO
-
-
 
 
 -- ROUTE_LOG PROCEDURE
@@ -868,6 +780,98 @@ BEGIN
 	DELETE FROM [Type_bus] WHERE ID = @ID
 
 	SELECT * FROM [dbo].[Type_bus]
+END
+
+GO
+
+
+-- BUS PROCEDURE
+	--Insert Bus
+DROP PROCEDURE IF EXISTS spInsertBus
+
+GO
+
+CREATE PROCEDURE spInsertBus
+(	
+	@licence_plate nvarchar(50),
+	@capacity INT,
+	@size nvarchar(50),
+	@ID_type_bus INT,
+	@ID_route INT
+)
+AS
+BEGIN
+	SELECT * FROM  [dbo].[Bus] 
+
+	INSERT INTO [dbo].[Bus] 
+	VALUES(@licence_plate, @capacity, @size, @ID_type_bus, @ID_route)
+	
+	SELECT * FROM  [dbo].[Bus] order by licence_plate 
+END
+
+GO
+
+	--Update Bus
+DROP PROCEDURE IF EXISTS spUpdateBus
+
+GO	
+
+CREATE PROCEDURE spUpdateBus
+(
+	@licence_plate nvarchar(50),
+	@capacity INT,
+	@size nvarchar(50),
+	@ID_type_bus INT,
+	@ID_route INT 
+)
+AS 
+BEGIN
+	SELECT * FROM [dbo].[Bus]
+
+	UPDATE [Bus]
+	SET 
+		capacity = @capacity,
+		size = @size,
+		ID_type_bus = @ID_type_bus,
+		ID_route = @ID_route
+	WHERE licence_plate = @licence_plate
+	
+	SELECT * FROM [Bus]	
+END 
+
+GO
+
+	--Select Bus
+DROP PROCEDURE IF EXISTS spSelectBus
+
+GO 
+
+CREATE PROCEDURE spSelectBus(
+	@licence_plate nvarchar(50)
+)
+AS 
+BEGIN
+	SELECT [licence_plate], [size], [ID_type_bus], [ID_route] FROM [dbo].[Bus]
+	WHERE licence_plate = @licence_plate
+END
+
+GO
+
+	--Delete Bus
+DROP PROCEDURE IF EXISTS spDeleteBus
+
+GO
+	
+CREATE PROCEDURE spDeleteBus(
+	@licence_plate nvarchar(50) 
+)
+AS 
+BEGIN 
+	SELECT * FROM [dbo].[Bus]
+	
+	DELETE FROM [Bus] WHERE licence_plate = @licence_plate
+
+	SELECT * FROM [dbo].[Bus]
 END
 
 GO

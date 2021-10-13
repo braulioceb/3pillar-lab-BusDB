@@ -220,3 +220,27 @@ WHERE
 GO 
 
 SELECT * FROM RouteWithoutBus
+
+GO -- 16
+
+SELECT 
+	COUNT(*)
+FROM 
+	BUS
+WHERE 
+	ID_route IS NULL OR ID_type_bus IS NULL
+
+GO -- 17
+
+SELECT 
+	D.ID, D.[Name], G.[Name] AS GarageName
+FROM 
+	Driver D
+LEFT JOIN 
+	Journey J ON D.ID_journey = J.ID
+LEFT JOIN 
+	Journey_town JT ON J.ID = JT.ID_journey
+LEFT JOIN 
+	Town T ON JT.ID_town = T.ID
+LEFT JOIN 
+	Garage G ON T.ID = G.ID_town

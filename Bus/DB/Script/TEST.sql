@@ -62,3 +62,10 @@ EXEC spInsertType_bus 'Inserted description'
 EXEC spUpdateType_bus 18,'updated description'
 EXEC spSelectType_bus 1	
 EXEC spDeleteType_bus 15
+
+GO 
+
+EXEC spInsertBus 'AND-W00', 1, 'small', 6, 6
+EXEC spUpdateBus 'AND-W00', 0, 'really small', null, null 
+EXEC spSelectBus 'AND-W00'
+EXEC spDeleteBus 'YUT-H77'

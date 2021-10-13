@@ -38,7 +38,7 @@ CREATE TABLE Route_journey (
 	
 	ID_route INT,
 	ID_journey INT,
-	[description] varchar(20), --Anexo
+	[description] varchar(20), 
 	PRIMARY KEY(ID_route,ID_journey),
 	FOREIGN KEY(ID_route) REFERENCES [Route](ID),
 	FOREIGN KEY(ID_journey) REFERENCES Journey(ID)
@@ -87,7 +87,7 @@ CREATE TABLE Journey_town (
 	
 	ID_town INT,
 	ID_journey INT,
-	[description] varchar(50),  --Anexo
+	[description] varchar(50),  
 	PRIMARY KEY(ID_town,ID_journey),
 	FOREIGN KEY(ID_town) REFERENCES Town(ID),
 	FOREIGN KEY(ID_journey) REFERENCES Journey(ID),
